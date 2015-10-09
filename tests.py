@@ -1,6 +1,7 @@
 import shade
 import sys
 import os
+import logging
 
 
 class DHCTest:
@@ -30,10 +31,13 @@ class DHCTest:
         instance = self.launch_instance(image, flavor, self.instance_name, sec_group)
         self.list_servers()
 
-        #volume = self.create_volume()
-        #self.attach_volume_to_instance(instance, volume)
-        #self.detach_volume_from_instance(instance, volume)
-        #self.destroy_volume(volume)
+        volume = self.create_volume()
+        self.attach_volume_to_instance(instance, volume)
+
+        volume = self.get_volume(volume['id'])
+
+        self.detach_volume_from_instance(instance, volume)
+        self.delete_volume(volume)
 
         unused_ip = self.get_ip()
         self.attach_ip_to_instance(instance, unused_ip)
@@ -100,6 +104,12 @@ class DHCTest:
         print("Getting flavor with id " + flavor_id)
         flavor = self.conn.get_flavor(flavor_id)
         return flavor
+
+    # Get the volume with the id passed in as an argument
+    def get_volume(self, volume_id):
+        print("Getting volume with id " + volume_id)
+        volume = self.conn.get_volume(volume_id)
+        return volume
 
     # Launch an instance
     def launch_instance(self, image, flavor, name, security_group):

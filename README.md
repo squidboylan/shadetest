@@ -16,8 +16,8 @@ Tests
 + Attach ip to instance
 + Detach ip from instance
 + Create volume
-+ Attach volume to instance (Untested)
-+ Detach volume from instance (Untested)
++ Attach volume to instance
++ Detach volume from instance
 + Delete volume
 + Delete instance
 + Delete security group
