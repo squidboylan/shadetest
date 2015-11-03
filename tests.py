@@ -144,7 +144,7 @@ class DHCTest:
     # Attach an ip to an instance
     def attach_ip_to_instance(self, instance, ip):
         print("Attaching ip to server")
-        self.conn.attach_ip_to_server(instance['id'], ip['id'])
+        self.conn.add_ip_list(instance, [ip['floating_ip_address']])
 
     # Detach an ip from an instance
     def detach_ip_from_instance(self, instance, ip):
@@ -176,7 +176,7 @@ class DHCTest:
 
     # Delete an instance
     def delete_instance(self, instance):
-        print("Deleting instance")
+        print("Deleting Instance")
         self.conn.delete_server(instance['id'], wait=True)
 
     # Delete a security group
