@@ -32,6 +32,10 @@ class DHCTest:
         self.list_servers()
 
         volume = self.create_volume()
+
+        snap = self.create_volume_snapshot(volume)
+        self.delete_volume_snapshot(snap)
+
         self.attach_volume_to_instance(instance, volume)
 
         volume = self.get_volume(volume['id'])
@@ -173,6 +177,17 @@ class DHCTest:
     def delete_volume(self, volume):
         print("Deleting volume")
         self.conn.delete_volume(volume['id'])
+
+    def create_volume_snapshot(self, volume):
+        print("Creating volume snapshot")
+        return self.conn.create_volume_snapshot(volume['id'])
+
+    def delete_volume_snapshot(self, volume_snapshot):
+        print("Deleting volume snapshot")
+        if not self.conn.create_volume_snapshot(volume_snapshot['id'],
+                                                wait=True):
+            print("Failed to delete the snapshot " + volume_snapshot['id'])
+            sys.exit(1)
 
     # Delete an instance
     def delete_instance(self, instance):

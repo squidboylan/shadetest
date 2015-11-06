@@ -19,5 +19,7 @@ Tests
 + Attach volume to instance
 + Detach volume from instance
 + Delete volume
++ Create volume snapshot
++ Delete volume snapshot
 + Delete instance
 + Delete security group
